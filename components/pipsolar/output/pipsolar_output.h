@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../pipsolar.h"
+//#include "../pipsolar.h"
 #include "esphome/components/output/float_output.h"
 #include "esphome/core/component.h"
 
