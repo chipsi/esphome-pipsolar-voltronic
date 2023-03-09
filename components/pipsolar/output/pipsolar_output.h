@@ -1,6 +1,6 @@
 #pragma once
 
-#include "esphome-pipsolar-voltronic/commponents/pipsolar/pipsolar.h"
+#include "esphome-pipsolar-voltronic/components/pipsolar/pipsolar.h"
 #include "esphome/components/output/float_output.h"
 #include "esphome/core/component.h"
 
