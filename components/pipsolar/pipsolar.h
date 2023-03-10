@@ -43,7 +43,7 @@ struct PollingCommand {
  public: \
   void set_##name(type *name) { /* NOLINT */ \
     this->name##_ = name; \
-    this->add_polling_command_(#polling_command, POLLING_##polling_command); \
+    this->add_polling_command_("^" + #polling_command, POLLING_##polling_command); \
   }
 
 #define PIPSOLAR_SENSOR(name, polling_command, value_type) \
