@@ -69,7 +69,7 @@ void Pipsolar::loop() {
   if (this->state_ == STATE_POLL_DECODED) {
     std::string mode;
     switch (this->used_polling_commands_[this->last_polling_command_].identifier) {
-      case POLLING_P007PIRI:
+      case POLLING_QPIRI:
         if (this->grid_rating_voltage_) {
           this->grid_rating_voltage_->publish_state(value_grid_rating_voltage_);
         }
@@ -174,7 +174,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_P005GS:
+      case POLLING_QPIGS:
         if (this->grid_voltage_) {
           this->grid_voltage_->publish_state(value_grid_voltage_);
         }
@@ -268,14 +268,14 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_P006MOD:
+      case POLLING_QMOD:
         if (this->device_mode_) {
           mode = value_device_mode_;
           this->device_mode_->publish_state(mode);
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_P007FLAG:
+      case POLLING_QFLAG:
         if (this->silence_buzzer_open_buzzer_) {
           this->silence_buzzer_open_buzzer_->publish_state(value_silence_buzzer_open_buzzer_);
         }
@@ -305,7 +305,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_P005FWS:
+      case POLLING_QPIWS:
         if (this->warnings_present_) {
           this->warnings_present_->publish_state(value_warnings_present_);
         }
@@ -432,7 +432,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_P004T:
+      case POLLING_QT:
       case POLLING_QMN:
         this->state_ = STATE_IDLE;
         break;
@@ -445,9 +445,10 @@ void Pipsolar::loop() {
     char tmp[PIPSOLAR_READ_BUFFER_LENGTH];
     sprintf(tmp, "%s", this->read_buffer_);
     switch (this->used_polling_commands_[this->last_polling_command_].identifier) {
-      case POLLING_P007PIRI:
+      case POLLING_QPIRI:
         ESP_LOGD(TAG, "Decode QPIRI");
         // 240.0 15.0 240.0 50.0 15.0 3600 3600 24.0 24.0 23.5 29.2 29.0 2 010 100 0 2 3 1 01 0 0 26.5 0 0 (Axpert VM IV 24v 3600w)
+        // 240.0 22.9 240.0 50.0 22.9 5500 5500 48.0 51.0 42.0 55.1 54.7 2 02 100 1 2 1 1 01 0 0 53.0 0 1  (EASUN SML-II 48V 5500W)
         sscanf(tmp, "(%f %f %f %f %f %d %d %f %f %f %f %f %d %d %d %d %d %d %d %d %d %d %f %d %d",          // NOLINT
                &value_grid_rating_voltage_, &value_grid_rating_current_, &value_ac_output_rating_voltage_,  // NOLINT
                &value_ac_output_rating_frequency_, &value_ac_output_rating_current_,                        // NOLINT
@@ -460,14 +461,12 @@ void Pipsolar::loop() {
                &value_machine_type_, &value_topology_, &value_output_mode_,                                 // NOLINT
                &value_battery_redischarge_voltage_, &value_pv_ok_condition_for_parallel_,                   // NOLINT
                &value_pv_power_balance_);                                                                   // NOLINT
-/*               
         if (this->last_qpiri_) {
           this->last_qpiri_->publish_state(tmp);
         }
-*/        
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_P005GS:
+      case POLLING_QPIGS:
         ESP_LOGD(TAG, "Decode QPIGS");
         // Response examples of the PIP 2424MSE1
         // 226.7 49.9 226.7 49.9 0498 0479 016 427 27.00 005 100 0035 01.9 255.1 00.00 00000 10010110 00 00 00510 110 (2424MSE1)
@@ -475,6 +474,7 @@ void Pipsolar::loop() {
         // 247.3 50.0 239.0 50.0 0931 0805 025 360 26.10 007 060 0017 04.6 179.2 00.00 00001 00010110 00 00 00831 011 (Axpert VM IV 24v 3600w)
         // 232.6 50.0 229.9 49.9 0391 0312 007 402 54.40 042 072 0066 0042 284.6 00.00 00000 00010010 00 00 02901 010 (PIP-5048Mg FW71.85)
         // 218.1 49.9 218.1 49.9 0327 0295 005 360 51.20 000 100 0037 00.0 000.0 00.00 00000 00010000 00 00 00002 011 0 00 0000 (PIP6048MT)
+        // 000.0 00.0 239.5 50.0 0144 0014 002 422 53.10 004 100 0034 02.2 206.0 00.00 00000 00010110 00 00 00457 110 (EASUN SML-II 48V 5500W)
         sscanf(                                                                                                  // NOLINT
             tmp,                                                                                                 // NOLINT
             "(%f %f %f %f %d %d %d %d %f %d %d %d %f %f %f %d %1d%1d%1d%1d%1d%1d%1d%1d %d %d %d %1d%1d%1d",      // NOLINT
@@ -535,29 +535,26 @@ void Pipsolar::loop() {
             &value_ac_charging_status_,                                                       //          24     // NOLINT
             &value_battery_voltage_offset_for_fans_on_,                                       //          25     // NOLINT
             &value_eeprom_version_,                                                           //          26     // NOLINT
+//            &value_pv_input_current_for_battery_ * &value_pv_input_voltage_,                  //          27     // NOLINT
             &value_pv_charging_power_,                                                        //          27     // NOLINT
             &value_charging_to_floating_mode_,                                                //          28     // NOLINT
             &value_switch_on_,                                                                //          29     // NOLINT
             &value_dustproof_installed_                                                       //          30     // NOLINT
         );
-/*        
         if (this->last_qpigs_) {
           this->last_qpigs_->publish_state(tmp);
         }
-*/        
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_P006MOD:
+      case POLLING_QMOD:
         ESP_LOGD(TAG, "Decode QMOD");
         this->value_device_mode_ = char(this->read_buffer_[1]);
-/*        
         if (this->last_qmod_) {
           this->last_qmod_->publish_state(tmp);
         }
-*/        
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_P007FLAG:
+      case POLLING_QFLAG:
         ESP_LOGD(TAG, "Decode QFLAG");
         // result like:"(EbkuvxzDajy"
         // get through all char: ignore first "(" Enable flag on 'E', Disable on 'D') else set the corresponding value
@@ -598,14 +595,12 @@ void Pipsolar::loop() {
               break;
           }
         }
-/*        
         if (this->last_qflag_) {
           this->last_qflag_->publish_state(tmp);
         }
-*/        
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_P005FWS:
+      case POLLING_QPIWS:
         ESP_LOGD(TAG, "Decode QPIWS");
         // '(00000000000000000000000000000000'
         // iterate over all available flag (as not all models have all flags, but at least in the same order)
@@ -754,29 +749,23 @@ void Pipsolar::loop() {
               break;
           }
         }
-/*        
         if (this->last_qpiws_) {
           this->last_qpiws_->publish_state(tmp);
         }
-*/        
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_P004T:
+      case POLLING_QT:
         ESP_LOGD(TAG, "Decode QT");
-/*        
         if (this->last_qt_) {
           this->last_qt_->publish_state(tmp);
         }
-*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       case POLLING_QMN:
         ESP_LOGD(TAG, "Decode QMN");
-/*        
         if (this->last_qmn_) {
           this->last_qmn_->publish_state(tmp);
         }
-*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       case POLLING_QBATCD:
@@ -797,11 +786,10 @@ void Pipsolar::loop() {
           }
         }
         this->value_charging_discharging_control_select_ = tmp;
-/*
+
         if (this->last_qbatcd_) {
           this->last_qbatcd_->publish_state(tmp);
         }
-*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       default:
