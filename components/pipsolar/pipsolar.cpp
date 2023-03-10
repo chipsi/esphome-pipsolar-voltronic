@@ -477,7 +477,7 @@ void Pipsolar::loop() {
         // 000.0 00.0 239.5 50.0 0144 0014 002 422 53.10 004 100 0034 02.2 206.0 00.00 00000 00010110 00 00 00457 110 (EASUN SML-II 48V 5500W)
         sscanf(                                                                                                  // NOLINT
             tmp,                                                                                                 // NOLINT
-            "(%f %f %f %f %d %d %d %d %f %d %d %d %f %f %f %d %1d%1d%1d%1d%1d%1d%1d%1d %d %d %d %1d%1d%1d",      // NOLINT
+            "(%f %f %f %f %d %d %d %d %f %d %d %d %f %f %f %d %1d%1d%1d%1d%1d%1d%1d%1d %f %d %d %1d%1d%1d",      // NOLINT
             // 225.8   |              |            |                |              |               |       1     // NOLINT
             //   49.9  |              |            |                |              |               |       2     // NOLINT
             //      225.8             |            |                |              |               |       3     // NOLINT
