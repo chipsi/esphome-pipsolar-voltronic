@@ -61,7 +61,6 @@ struct PollingCommand {
 class Pipsolar : public uart::UARTDevice, public PollingComponent {
   // P005GS values
   PIPSOLAR_SENSOR(grid_voltage, P005GS, float)
-/*  
   PIPSOLAR_SENSOR(grid_frequency, P005GS, float)
   PIPSOLAR_SENSOR(ac_output_voltage, P005GS, float)
   PIPSOLAR_SENSOR(ac_output_frequency, P005GS, float)
@@ -91,10 +90,9 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
   PIPSOLAR_BINARY_SENSOR(charging_to_floating_mode, P005GS, int)
   PIPSOLAR_BINARY_SENSOR(switch_on, P005GS, int)
   PIPSOLAR_BINARY_SENSOR(dustproof_installed, P005GS, int)
-*/
+
   // P007PIRI values
   PIPSOLAR_SENSOR(grid_rating_voltage, P007PIRI, float)
-  /*
   PIPSOLAR_SENSOR(grid_rating_current, P007PIRI, float)
   PIPSOLAR_SENSOR(ac_output_rating_voltage, P007PIRI, float)
   PIPSOLAR_SENSOR(ac_output_rating_frequency, P007PIRI, float)
@@ -119,13 +117,12 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
   PIPSOLAR_SENSOR(battery_redischarge_voltage, P007PIRI, float)
   PIPSOLAR_SENSOR(pv_ok_condition_for_parallel, P007PIRI, int)
   PIPSOLAR_SENSOR(pv_power_balance, P007PIRI, int)
-*/
+
   // P006MOD values
   PIPSOLAR_VALUED_TEXT_SENSOR(device_mode, P006MOD, char)
 
   // P007FLAG values
   PIPSOLAR_BINARY_SENSOR(silence_buzzer_open_buzzer, P007FLAG, int)
-  /*
   PIPSOLAR_BINARY_SENSOR(overload_bypass_function, P007FLAG, int)
   PIPSOLAR_BINARY_SENSOR(lcd_escape_to_default, P007FLAG, int)
   PIPSOLAR_BINARY_SENSOR(overload_restart_function, P007FLAG, int)
@@ -134,10 +131,9 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
   PIPSOLAR_BINARY_SENSOR(alarm_on_when_primary_source_interrupt, P007FLAG, int)
   PIPSOLAR_BINARY_SENSOR(fault_code_record, P007FLAG, int)
   PIPSOLAR_BINARY_SENSOR(power_saving, P007FLAG, int)
-*/
+
   // P005FWS values
   PIPSOLAR_BINARY_SENSOR(warnings_present, P005FWS, bool)
-  /*
   PIPSOLAR_BINARY_SENSOR(faults_present, P005FWS, bool)
   PIPSOLAR_BINARY_SENSOR(warning_power_loss, P005FWS, bool)
   PIPSOLAR_BINARY_SENSOR(fault_inverter_fault, P005FWS, bool)
@@ -173,9 +169,9 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
   PIPSOLAR_BINARY_SENSOR(warnung_low_pv_energy, P005FWS, bool)
   PIPSOLAR_BINARY_SENSOR(warning_high_ac_input_during_bus_soft_start, P005FWS, bool)
   PIPSOLAR_BINARY_SENSOR(warning_battery_equalization, P005FWS, bool)
-*/
+
   // QBATCD values
-/*  
+
   PIPSOLAR_BINARY_SENSOR(discharge_onoff, QBATCD, bool)
   PIPSOLAR_BINARY_SENSOR(discharge_with_standby_onoff, QBATCD, bool)
   PIPSOLAR_BINARY_SENSOR(charge_onoff, QBATCD, bool)
@@ -198,7 +194,7 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
 
   PIPSOLAR_SELECT(output_source_priority_select, P007PIRI)
   PIPSOLAR_VALUED_SELECT(charging_discharging_control_select, QBATCD, std::string)
-*/
+
   void switch_command(const std::string &command);
   void setup() override;
   void loop() override;
