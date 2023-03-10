@@ -535,7 +535,8 @@ void Pipsolar::loop() {
             &value_ac_charging_status_,                                                       //          24     // NOLINT
             &value_battery_voltage_offset_for_fans_on_,                                       //          25     // NOLINT
             &value_eeprom_version_,                                                           //          26     // NOLINT
-            &value_pv_charging_power_,                                                        //          27     // NOLINT
+            &value_pv_input_current_for_battery_ * &value_pv_input_voltage_,                  //          27     // NOLINT
+//            &value_pv_charging_power_,                                                        //          27     // NOLINT
             &value_charging_to_floating_mode_,                                                //          28     // NOLINT
             &value_switch_on_,                                                                //          29     // NOLINT
             &value_dustproof_installed_                                                       //          30     // NOLINT
