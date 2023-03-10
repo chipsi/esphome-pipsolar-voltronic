@@ -47,13 +47,13 @@ void Pipsolar::loop() {
         } else {
           ESP_LOGD(TAG, "command not successful");
         }
-        this->command_queue_[this->command_queue_position_] = std::string("");
+        this->command_queue_[this->command_queue_position_] = std::string("^");
         this->command_queue_position_ = (command_queue_position_ + 1) % COMMAND_QUEUE_LENGTH;
         this->state_ = STATE_IDLE;
 
       } else {
         // crc failed
-        this->command_queue_[this->command_queue_position_] = std::string("");
+        this->command_queue_[this->command_queue_position_] = std::string("^");
         this->command_queue_position_ = (command_queue_position_ + 1) % COMMAND_QUEUE_LENGTH;
         this->state_ = STATE_IDLE;
       }
@@ -69,7 +69,7 @@ void Pipsolar::loop() {
   if (this->state_ == STATE_POLL_DECODED) {
     std::string mode;
     switch (this->used_polling_commands_[this->last_polling_command_].identifier) {
-      case POLLING_QPIRI:
+      case POLLING_P007PIRI:
         if (this->grid_rating_voltage_) {
           this->grid_rating_voltage_->publish_state(value_grid_rating_voltage_);
         }
@@ -174,7 +174,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_QPIGS:
+      case POLLING_P005GS:
         if (this->grid_voltage_) {
           this->grid_voltage_->publish_state(value_grid_voltage_);
         }
@@ -268,14 +268,14 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_QMOD:
+      case POLLING_P006MOD:
         if (this->device_mode_) {
           mode = value_device_mode_;
           this->device_mode_->publish_state(mode);
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_QFLAG:
+      case POLLING_P007FLAG:
         if (this->silence_buzzer_open_buzzer_) {
           this->silence_buzzer_open_buzzer_->publish_state(value_silence_buzzer_open_buzzer_);
         }
@@ -305,7 +305,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_QPIWS:
+      case POLLING_P005FWS:
         if (this->warnings_present_) {
           this->warnings_present_->publish_state(value_warnings_present_);
         }
@@ -432,7 +432,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_QT:
+      case POLLING_P004T:
       case POLLING_QMN:
         this->state_ = STATE_IDLE;
         break;
@@ -445,7 +445,7 @@ void Pipsolar::loop() {
     char tmp[PIPSOLAR_READ_BUFFER_LENGTH];
     sprintf(tmp, "%s", this->read_buffer_);
     switch (this->used_polling_commands_[this->last_polling_command_].identifier) {
-      case POLLING_QPIRI:
+      case POLLING_P007PIRI:
         ESP_LOGD(TAG, "Decode QPIRI");
         // 240.0 15.0 240.0 50.0 15.0 3600 3600 24.0 24.0 23.5 29.2 29.0 2 010 100 0 2 3 1 01 0 0 26.5 0 0 (Axpert VM IV 24v 3600w)
         sscanf(tmp, "(%f %f %f %f %f %d %d %f %f %f %f %f %d %d %d %d %d %d %d %d %d %d %f %d %d",          // NOLINT
@@ -465,7 +465,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_QPIGS:
+      case POLLING_P005GS:
         ESP_LOGD(TAG, "Decode QPIGS");
         // Response examples of the PIP 2424MSE1
         // 226.7 49.9 226.7 49.9 0498 0479 016 427 27.00 005 100 0035 01.9 255.1 00.00 00000 10010110 00 00 00510 110 (2424MSE1)
@@ -543,7 +543,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_QMOD:
+      case POLLING_P006MOD:
         ESP_LOGD(TAG, "Decode QMOD");
         this->value_device_mode_ = char(this->read_buffer_[1]);
         if (this->last_qmod_) {
@@ -551,7 +551,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_QFLAG:
+      case POLLING_P007FLAG:
         ESP_LOGD(TAG, "Decode QFLAG");
         // result like:"(EbkuvxzDajy"
         // get through all char: ignore first "(" Enable flag on 'E', Disable on 'D') else set the corresponding value
@@ -597,7 +597,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_QPIWS:
+      case POLLING_P005FWS:
         ESP_LOGD(TAG, "Decode QPIWS");
         // '(00000000000000000000000000000000'
         // iterate over all available flag (as not all models have all flags, but at least in the same order)
@@ -751,7 +751,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_QT:
+      case POLLING_P004T:
         ESP_LOGD(TAG, "Decode QT");
         if (this->last_qt_) {
           this->last_qt_->publish_state(tmp);
