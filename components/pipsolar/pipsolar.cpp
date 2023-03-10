@@ -47,14 +47,16 @@ void Pipsolar::loop() {
         } else {
           ESP_LOGD(TAG, "command not successful");
         }
-        this->command_queue_[this->command_queue_position_] = std::string("^");
-        this->command_queue_position_ = (command_queue_position_ + 1) % COMMAND_QUEUE_LENGTH;
+        this->command_queue_[this->command_queue_position_] = std::string("");
+        this->command_queue_[this->command_queue_position_ + 1] = std::string("^");
+        this->command_queue_position_ = (command_queue_position_ + 2) % COMMAND_QUEUE_LENGTH;
         this->state_ = STATE_IDLE;
 
       } else {
         // crc failed
-        this->command_queue_[this->command_queue_position_] = std::string("^");
-        this->command_queue_position_ = (command_queue_position_ + 1) % COMMAND_QUEUE_LENGTH;
+        this->command_queue_[this->command_queue_position_] = std::string("");
+        this->command_queue_[this->command_queue_position_ + 1] = std::string("^");
+        this->command_queue_position_ = (command_queue_position_ + 2) % COMMAND_QUEUE_LENGTH;
         this->state_ = STATE_IDLE;
       }
     } else {
