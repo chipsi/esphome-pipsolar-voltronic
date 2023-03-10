@@ -538,17 +538,21 @@ void Pipsolar::loop() {
             &value_switch_on_,                                                                //          29     // NOLINT
             &value_dustproof_installed_                                                       //          30     // NOLINT
         );
+/*        
         if (this->last_qpigs_) {
           this->last_qpigs_->publish_state(tmp);
         }
+*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       case POLLING_P006MOD:
         ESP_LOGD(TAG, "Decode QMOD");
         this->value_device_mode_ = char(this->read_buffer_[1]);
+/*        
         if (this->last_qmod_) {
           this->last_qmod_->publish_state(tmp);
         }
+*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       case POLLING_P007FLAG:
@@ -592,9 +596,11 @@ void Pipsolar::loop() {
               break;
           }
         }
+/*        
         if (this->last_qflag_) {
           this->last_qflag_->publish_state(tmp);
         }
+*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       case POLLING_P005FWS:
@@ -746,23 +752,29 @@ void Pipsolar::loop() {
               break;
           }
         }
+/*        
         if (this->last_qpiws_) {
           this->last_qpiws_->publish_state(tmp);
         }
+*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       case POLLING_P004T:
         ESP_LOGD(TAG, "Decode QT");
+/*        
         if (this->last_qt_) {
           this->last_qt_->publish_state(tmp);
         }
+*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       case POLLING_QMN:
         ESP_LOGD(TAG, "Decode QMN");
+/*        
         if (this->last_qmn_) {
           this->last_qmn_->publish_state(tmp);
         }
+*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       case POLLING_QBATCD:
@@ -783,10 +795,11 @@ void Pipsolar::loop() {
           }
         }
         this->value_charging_discharging_control_select_ = tmp;
-
+/*
         if (this->last_qbatcd_) {
           this->last_qbatcd_->publish_state(tmp);
         }
+*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       default:
