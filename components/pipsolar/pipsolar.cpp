@@ -425,7 +425,8 @@ void Pipsolar::loop() {
         // 240.0 22.9 240.0 50.0 22.9 5500 5500 48.0 51.0 42.0 55.1 54.7 2 02 100 1 2 1 1 01 0 0 53.0 0 1  (EASUN SML-II 48V 5500W)
         // ^D0892400,233,2400,500,233,5600,5600,480,500,530,480,547,547,2,002,120,0,1,1,9,0,0,0,1,1,01     (EASUN SV-IV 48V 5600W)
         //       A    B   C    D   E    F    G   H   I   J   K   L   M  N  O   P  Q R S T U V W Z a  b
-        ESP_LOGD(TAG, "SSCANF return : %d ", sscanf(tmp, "^D089%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",          // NOLINT
+        ESP_LOGD(TAG, "SSCANF return : %d ", 
+                 sscanf(tmp, "^D089%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",          // NOLINT
         //                A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  Z  a  b?
                &value_ac_input_rating_voltage_,                                                 //           A     // NOLINT
                &value_ac_input_rating_current_,                                                 //           B     // NOLINT
@@ -471,9 +472,8 @@ void Pipsolar::loop() {
         // 000.0 00.0 239.5 50.0 0144 0014 002 422 53.10 004 100 0034 02.2 206.0 00.00 00000 00010110 00 00 00457 110 (EASUN SML-II 48V 5500W)
         // ^D1062417,499,2417,499,0483,0364,008,510,000,000,000,000,028,022,000,000,0392,0000,2143,0000,0,2,0,1,1,2,1,0 (EASUN SV-IV 48V 5600W)
         //       A    B   C    D   E    F    G   H   I   J   K   L   M   N   O   P   Q    R    S    T   U V W X Y Z a b
-        ESP_LOGD(TAG, "SSCANF return : %d ", sscanf(                                                                                                  // NOLINT
-            tmp,                                                                                                 // NOLINT
-            "(^D106%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",         // NOLINT
+        ESP_LOGD(TAG, "SSCANF return : %d ", 
+                 sscanf(tmp, "(^D106%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",         // NOLINT
         //         A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z  a  b
             &value_grid_voltage_,                                                             //           A     // NOLINT
             &value_grid_frequency_,                                                           //           B     // NOLINT
