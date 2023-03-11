@@ -474,16 +474,16 @@ void Pipsolar::loop() {
             tmp,                                                                                                 // NOLINT
             "(^D106%f,%f,%f,%f,%d,%d,%d,%f,%f,%f,%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%d,%d,%d,%d,%d,%d,%d,%d",         // NOLINT
         //         A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z  a  b
-            &value_grid_voltage_ / 10.0,                                                      //           A     // NOLINT
-            &value_grid_frequency_ / 10.0,                                                    //           B     // NOLINT
-            &value_ac_output_voltage_ / 10.0,                                                 //           C     // NOLINT
-            &value_ac_output_frequency_ / 10.0,                                               //           D     // NOLINT
+            &value_grid_voltage_,                                                             //           A     // NOLINT
+            &value_grid_frequency_,                                                           //           B     // NOLINT
+            &value_ac_output_voltage_,                                                        //           C     // NOLINT
+            &value_ac_output_frequency_,                                                      //           D     // NOLINT
             &value_ac_output_apparent_power_,                                                 //           E     // NOLINT
             &value_ac_output_active_power_,                                                   //           F     // NOLINT
             &value_output_load_percent_,                                                      //           G     // NOLINT
-            &value_battery_voltage_ / 10.0,                                                   //           H     // NOLINT
-            &value_battery_voltage_from_scc / 10.0,                                           //           I     // NOLINT
-            &value_battery_voltage_from_scc2 / 10.0,                                          //           J     // NOLINT
+            &value_battery_voltage_,                                                          //           H     // NOLINT
+            &value_battery_voltage_from_scc,                                                  //           I     // NOLINT
+            &value_battery_voltage_from_scc2,                                                 //           J     // NOLINT
             &value_battery_discharge_current_,                                                //           K     // NOLINT
             &value_battery_charging_current_,                                                 //           L     // NOLINT
             &value_battery_capacity_percent_,                                                 //           M     // NOLINT
@@ -492,8 +492,8 @@ void Pipsolar::loop() {
             &value_mppt2_charger_temperature_,                                                //           P     // NOLINT
             &value_pv1_input_power_,                                                          //           Q     // NOLINT
             &value_pv2_input_power_,                                                          //           R     // NOLINT
-            &value_pv1_input_voltage_ / 10.0,                                                 //           S     // NOLINT
-            &value_pv2_input_voltage_ / 10.0,                                                 //           T     // NOLINT
+            &value_pv1_input_voltage_,                                                        //           S     // NOLINT
+            &value_pv2_input_voltage_,                                                        //           T     // NOLINT
             &value_setting_value_configuration_state_,                                        //           U     // NOLINT
             &value_mppt1_charger_status_,                                                     //           V     // NOLINT
             &value_mppt2_charger_status_,                                                     //           W     // NOLINT
