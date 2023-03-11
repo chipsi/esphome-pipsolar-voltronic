@@ -426,8 +426,8 @@ void Pipsolar::loop() {
         //       A    B   C    D   E    F    G   H   I   J   K   L   M  N  O   P  Q R S T U V W Z a  b
         sscanf(tmp, "^D089%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",          // NOLINT
         //                A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  Z  a
-               &value_grid_rating_voltage_,                                                     //           A     // NOLINT
-               &value_grid_rating_current_,                                                     //           B     // NOLINT
+               &value_ac_input_rating_voltage_,                                                 //           A     // NOLINT
+               &value_ac_input_rating_current_,                                                 //           B     // NOLINT
                &value_ac_output_rating_voltage_,                                                //           C     // NOLINT
                &value_ac_output_rating_frequency_,                                              //           D     // NOLINT
                &value_ac_output_rating_current_,                                                //           E     // NOLINT
@@ -471,7 +471,7 @@ void Pipsolar::loop() {
         //       A    B   C    D   E    F    G   H   I   J   K   L   M   N   O   P   Q    R    S    T   U V W X Y Z a b
         sscanf(                                                                                                  // NOLINT
             tmp,                                                                                                 // NOLINT
-            "(^D106%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%d,%d,%d,%d,%d,%d,%d,%d",         // NOLINT
+            "(^D106%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",         // NOLINT
         //         A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z  a  b
             &value_grid_voltage_,                                                             //           A     // NOLINT
             &value_grid_frequency_,                                                           //           B     // NOLINT
