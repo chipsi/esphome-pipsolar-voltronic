@@ -473,7 +473,7 @@ void Pipsolar::loop() {
         // ^D1062417,499,2417,499,0483,0364,008,510,000,000,000,000,028,022,000,000,0392,0000,2143,0000,0,2,0,1,1,2,1,0 (EASUN SV-IV 48V 5600W)
         //       A    B   C    D   E    F    G   H   I   J   K   L   M   N   O   P   Q    R    S    T   U V W X Y Z a b
         ESP_LOGD(TAG, "SSCANF return : %d ", 
-                 sscanf(tmp, "^D106%f,%f,%f,%f,%d,%d,%d,%f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%df,%f,%d,%d,%d,%d,%d,%d,%d,%d",         // NOLINT
+                 sscanf(tmp, "^D106%f,%f,%f,%f,%d,%d,%d,%f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%d,%d,%d,%d,%d,%d,%d,%d",         // NOLINT
         //                          A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z  a  b
             &value_grid_voltage_,                                                             //           A     // NOLINT
             &value_grid_frequency_,                                                           //           B     // NOLINT
