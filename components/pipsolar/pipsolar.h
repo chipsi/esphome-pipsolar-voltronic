@@ -219,10 +219,10 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
   void queue_command_(const char *command, uint8_t length);
   std::string protocol = "18";
   std::string commands_PI00[] = { "QPIRI", "QPIGS", "QMOD", "QFLAG", "QPIWS", "QT", "QMN", "QBATCD" };
-  std::string commands_PI17[];
-  std::string returns_PI17[];
-  std::string commands_PI18[];
-  std::string returns_PI18[];
+  std::string commands_PI17[] = { "^P007PIRI", "^P005GS", "^P006MOD", "^P007FLAG", "^P005FWS", "^P004T", "", "" };
+  std::string returns_PI17[]  = { "^P007PIRI", "^P005GS", "^P006MOD", "^P007FLAG", "^P005FWS", "^P004T", "", "" };
+  std::string commands_PI18[] = { "^P007PIRI", "^P005GS", "^P006MOD", "^P007FLAG", "^P005FWS", "^P004T", "", "" };
+  std::string returns_PI18[]  = { "^P007PIRI", "^P005GS", "^P006MOD", "^P007FLAG", "^P005FWS", "^P004T", "", "" };
   std::string command_queue_[COMMAND_QUEUE_LENGTH];
   uint8_t command_queue_position_ = 0;
   uint8_t read_buffer_[PIPSOLAR_READ_BUFFER_LENGTH];
@@ -239,11 +239,6 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
     STATE_POLL_CHECKED = 5,
     STATE_POLL_DECODED = 6,
   };
-
-  std::string commands_PI17[] = { "^P007PIRI", "^P005GS", "^P006MOD", "^P007FLAG", "^P005FWS", "^P004T", "", "" };
-  std::string returns_PI17[] = { "^P007PIRI", "^P005GS", "^P006MOD", "^P007FLAG", "^P005FWS", "^P004T", "", "" };
-  std::string commands_PI18[] = { "^P007PIRI", "^P005GS", "^P006MOD", "^P007FLAG", "^P005FWS", "^P004T", "", "" };
-  std::string returns_PI18[] = { "^P007PIRI", "^P005GS", "^P006MOD", "^P007FLAG", "^P005FWS", "^P004T", "", "" };
 
   uint8_t last_polling_command_ = 0;
 
