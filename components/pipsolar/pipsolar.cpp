@@ -972,7 +972,7 @@ void Pipsolar::update() {}
 
 void Pipsolar::add_polling_command_(const char *command, ENUMPollingCommand polling_command) {
   for (auto &used_polling_command : this->used_polling_commands_) {
-      ESP_LOGCONFIG(TAG, "%s", used_polling_command.command);    
+    if (used_polling_command.length == strlen(command)) {
       uint8_t len = strlen(command);
       if (memcmp(used_polling_command.command, command, len) == 0) {
         return;
