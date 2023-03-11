@@ -217,8 +217,8 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
   uint8_t send_next_command_();
   void send_next_poll_();
   void queue_command_(const char *command, uint8_t length);
-  std::string protocol;
-  std::string commands_PI00[];
+  std::string protocol = "18";
+  std::string commands_PI00[] = { "QPIRI", "QPIGS", "QMOD", "QFLAG", "QPIWS", "QT", "QMN", "QBATCD" };
   std::string commands_PI17[];
   std::string returns_PI17[];
   std::string commands_PI18[];
@@ -239,10 +239,6 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
     STATE_POLL_CHECKED = 5,
     STATE_POLL_DECODED = 6,
   };
-
-  std::string protocol = "18";
-
-  std::string commands_PI00[] = { "QPIRI", "QPIGS", "QMOD", "QFLAG", "QPIWS", "QT", "QMN", "QBATCD" };
 
   std::string commands_PI17[] = { "^P007PIRI", "^P005GS", "^P006MOD", "^P007FLAG", "^P005FWS", "^P004T", "", "" };
   std::string returns_PI17[] = { "^P007PIRI", "^P005GS", "^P006MOD", "^P007FLAG", "^P005FWS", "^P004T", "", "" };
