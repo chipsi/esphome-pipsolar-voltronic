@@ -61,7 +61,7 @@ struct PollingCommand {
 
 class Pipsolar : public uart::UARTDevice, public PollingComponent {
   // QPIGS values
-  PIPSOLAR_SENSOR(grid_voltage, QPIGS, float)
+  PIPSOLAR_SENSOR(grid_voltage,commands_PI18[0], float)
   PIPSOLAR_SENSOR(grid_frequency, QPIGS, float)
   PIPSOLAR_SENSOR(ac_output_voltage, QPIGS, float)
   PIPSOLAR_SENSOR(ac_output_frequency, QPIGS, float)
