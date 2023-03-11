@@ -196,11 +196,17 @@ void Pipsolar::loop() {
         if (this->output_load_percent_) {
           this->output_load_percent_->publish_state(value_output_load_percent_);
         }
-        if (this->bus_voltage_) {
-          this->bus_voltage_->publish_state(value_bus_voltage_);
-        }
         if (this->battery_voltage_) {
           this->battery_voltage_->publish_state(value_battery_voltage_);
+        }
+        if (this->battery_voltage_from_scc_) {
+          this->battery_voltage_from_scc_->publish_state(value_battery_voltage_from_scc_);
+        }
+        if (this->battery_voltage_from_scc2_) {
+          this->battery_voltage_from_scc2_->publish_state(value_battery_voltage_from_scc2_);
+        }
+        if (this->battery_discharging_current_) {
+          this->battery_discharging_current_->publish_state(value_battery_discharging_current_);
         }
         if (this->battery_charging_current_) {
           this->battery_charging_current_->publish_state(value_battery_charging_current_);
@@ -211,60 +217,47 @@ void Pipsolar::loop() {
         if (this->inverter_heat_sink_temperature_) {
           this->inverter_heat_sink_temperature_->publish_state(value_inverter_heat_sink_temperature_);
         }
-        if (this->pv_input_current_for_battery_) {
-          this->pv_input_current_for_battery_->publish_state(value_pv_input_current_for_battery_);
+        if (this->mppt1_charger_temperature_) {
+          this->mppt1_charger_temperature_->publish_state(value_mppt1_charger_temperature_);
         }
-        if (this->pv_input_voltage_) {
-          this->pv_input_voltage_->publish_state(value_pv_input_voltage_);
+        if (this->mppt2_charger_temperature_) {
+          this->mppt2_charger_temperature_->publish_state(value_mppt2_charger_temperature_);
         }
-        if (this->battery_voltage_scc_) {
-          this->battery_voltage_scc_->publish_state(value_battery_voltage_scc_);
+        if (this->pv1_input_power_) {
+          this->pv1_input_power_->publish_state(value_pv1_input_power_);
         }
-        if (this->battery_discharge_current_) {
-          this->battery_discharge_current_->publish_state(value_battery_discharge_current_);
+        if (this->pv2_input_power_) {
+          this->pv2_input_power_->publish_state(value_pv2_input_power_);
         }
-        if (this->add_sbu_priority_version_) {
-          this->add_sbu_priority_version_->publish_state(value_add_sbu_priority_version_);
+        if (this->pv1_input_voltage_) {
+          this->pv1_input_voltage_->publish_state(value_pv1_input_voltage_);
         }
-        if (this->configuration_status_) {
-          this->configuration_status_->publish_state(value_configuration_status_);
+        if (this->pv2_input_voltage_) {
+          this->pv2_input_voltage_->publish_state(value_pv2_input_voltage_);
         }
-        if (this->scc_firmware_version_) {
-          this->scc_firmware_version_->publish_state(value_scc_firmware_version_);
+        if (this->setting_value_configuration_state_) {
+          this->setting_value_configuration_state_->publish_state(value_setting_value_configuration_state_);
         }
-        if (this->load_status_) {
-          this->load_status_->publish_state(value_load_status_);
+        if (this->mppt1_charger_status_) {
+          this->mppt1_charger_status_->publish_state(value_mppt1_charger_status_);
         }
-        if (this->battery_voltage_to_steady_while_charging_) {
-          this->battery_voltage_to_steady_while_charging_->publish_state(
-              value_battery_voltage_to_steady_while_charging_);
+        if (this->mppt2_charger_status_) {
+          this->mppt2_charger_status_->publish_state(value_mppt2_charger_status_);
         }
-        if (this->charging_status_) {
-          this->charging_status_->publish_state(value_charging_status_);
+        if (this->load_connection_) {
+          this->load_connection_->publish_state(value_load_connection_);
         }
-        if (this->scc_charging_status_) {
-          this->scc_charging_status_->publish_state(value_scc_charging_status_);
+        if (this->battery_power_direction_) {
+          this->battery_power_direction_->publish_state(value_battery_power_direction_);
         }
-        if (this->ac_charging_status_) {
-          this->ac_charging_status_->publish_state(value_ac_charging_status_);
+        if (this->dc_ac_power_direction_) {
+          this->dc_ac_power_direction_->publish_state(value_dc_ac_power_direction_);
         }
-        if (this->battery_voltage_offset_for_fans_on_) {
-          this->battery_voltage_offset_for_fans_on_->publish_state(value_battery_voltage_offset_for_fans_on_ / 10.0f);
-        }  //.1 scale
-        if (this->eeprom_version_) {
-          this->eeprom_version_->publish_state(value_eeprom_version_);
+        if (this->line_power_direction_) {
+          this->line_power_direction_->publish_state(value_line_power_direction_);
         }
-        if (this->pv_charging_power_) {
-          this->pv_charging_power_->publish_state(value_pv_charging_power_);
-        }
-        if (this->charging_to_floating_mode_) {
-          this->charging_to_floating_mode_->publish_state(value_charging_to_floating_mode_);
-        }
-        if (this->switch_on_) {
-          this->switch_on_->publish_state(value_switch_on_);
-        }
-        if (this->dustproof_installed_) {
-          this->dustproof_installed_->publish_state(value_dustproof_installed_);
+        if (this->local_parallel_id_) {
+          this->local_parallel_id_->publish_state(value_local_parallel_id_);
         }
         this->state_ = STATE_IDLE;
         break;
