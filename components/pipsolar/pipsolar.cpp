@@ -972,9 +972,6 @@ void Pipsolar::dump_config() {
 void Pipsolar::update() {}
 
 void Pipsolar::add_polling_command_(const char *command, ENUMPollingCommand polling_command) {
-  ESP_LOGCONFIG(TAG, " command - %s", command);
-  ESP_LOGCONFIG(TAG, " ENUM    - %d", polling_command);
-  command = commands_PI18[polling_command];
   for (auto &used_polling_command : this->used_polling_commands_) {
     if (used_polling_command.length == strlen(command)) {
       uint8_t len = strlen(command);
