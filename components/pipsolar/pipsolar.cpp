@@ -460,6 +460,7 @@ void Pipsolar::loop() {
         break;
       case POLLING_0P005GS:
         ESP_LOGD(TAG, "Decode ^P005GS");
+        ESP_LOGD(TAG, "String ^P005GS : %s ", tmp);
         // Response examples of the PIP 2424MSE1
         // 226.7 49.9 226.7 49.9 0498 0479 016 427 27.00 005 100 0035 01.9 255.1 00.00 00000 10010110 00 00 00510 110 (2424MSE1)
         // 225.8 49.9 225.8 49.9 0609 0565 020 427 27.00 005 100 0035 02.2 259.9 00.00 00000 10010110 00 00 00590 110 (2424MSE1)
