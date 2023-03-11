@@ -420,6 +420,7 @@ void Pipsolar::loop() {
     switch (this->used_polling_commands_[this->last_polling_command_].identifier) {
       case POLLING_0P007PIRI:
         ESP_LOGD(TAG, "Decode ^P007PIRI");
+        ESP_LOGD(TAG, "String ^P007PIRI : %s ", tmp);
         // 240.0 15.0 240.0 50.0 15.0 3600 3600 24.0 24.0 23.5 29.2 29.0 2 010 100 0 2 3 1 01 0 0 26.5 0 0 (Axpert VM IV 24v 3600w)
         // 240.0 22.9 240.0 50.0 22.9 5500 5500 48.0 51.0 42.0 55.1 54.7 2 02 100 1 2 1 1 01 0 0 53.0 0 1  (EASUN SML-II 48V 5500W)
         // ^D0892400,233,2400,500,233,5600,5600,480,500,530,480,547,547,2,002,120,0,1,1,9,0,0,0,1,1,01     (EASUN SV-IV 48V 5600W)
