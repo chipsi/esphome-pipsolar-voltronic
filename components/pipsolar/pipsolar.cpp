@@ -471,7 +471,7 @@ void Pipsolar::loop() {
         // 000.0 00.0 239.5 50.0 0144 0014 002 422 53.10 004 100 0034 02.2 206.0 00.00 00000 00010110 00 00 00457 110 (EASUN SML-II 48V 5500W)
         // ^D1062417,499,2417,499,0483,0364,008,510,000,000,000,000,028,022,000,000,0392,0000,2143,0000,0,2,0,1,1,2,1,0 (EASUN SV-IV 48V 5600W)
         //       A    B   C    D   E    F    G   H   I   J   K   L   M   N   O   P   Q    R    S    T   U V W X Y Z a b
-        sscanf(                                                                                                  // NOLINT
+        ESP_LOGD(TAG, "SSCANF return : %d ", sscanf(                                                                                                  // NOLINT
             tmp,                                                                                                 // NOLINT
             "(^D106%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",         // NOLINT
         //         A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z  a  b
@@ -503,7 +503,7 @@ void Pipsolar::loop() {
             &value_dc_ac_power_direction_,                                                    //           Z     // NOLINT
             &value_line_power_direction_,                                                     //           a     // NOLINT
             &value_local_parallel_id_                                                         //           b     // NOLINT
-        );
+        ));
         ESP_LOGD(TAG, "Value value_grid_voltage_ : %d ", value_grid_voltage_);
         if (this->last_qgs_) {
           this->last_qgs_->publish_state(tmp);
