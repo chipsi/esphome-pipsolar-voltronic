@@ -71,19 +71,19 @@ void Pipsolar::loop() {
     switch (this->used_polling_commands_[this->last_polling_command_].identifier) {
       case POLLING_0P007PIRI:
         if (this->ac_input_rating_voltage_) {
-          this->ac_input_rating_voltage_->publish_state(value_ac_input_rating_voltage_);
+          this->ac_input_rating_voltage_->publish_state(value_ac_input_rating_voltage_ / 10.0);
         }
         if (this->ac_input_rating_current_) {
-          this->ac_input_rating_current_->publish_state(value_ac_input_rating_current_);
+          this->ac_input_rating_current_->publish_state(value_ac_input_rating_current_ / 10.0);
         }
         if (this->ac_output_rating_voltage_) {
-          this->ac_output_rating_voltage_->publish_state(value_ac_output_rating_voltage_);
+          this->ac_output_rating_voltage_->publish_state(value_ac_output_rating_voltage_ / 10.0);
         }
         if (this->ac_output_rating_frequency_) {
-          this->ac_output_rating_frequency_->publish_state(value_ac_output_rating_frequency_);
+          this->ac_output_rating_frequency_->publish_state(value_ac_output_rating_frequency_ / 10.0);
         }
         if (this->ac_output_rating_current_) {
-          this->ac_output_rating_current_->publish_state(value_ac_output_rating_current_);
+          this->ac_output_rating_current_->publish_state(value_ac_output_rating_current_ / 10.0);
         }
         if (this->ac_output_rating_apparent_power_) {
           this->ac_output_rating_apparent_power_->publish_state(value_ac_output_rating_apparent_power_);
@@ -92,22 +92,22 @@ void Pipsolar::loop() {
           this->ac_output_rating_active_power_->publish_state(value_ac_output_rating_active_power_);
         }
         if (this->battery_rating_voltage_) {
-          this->battery_rating_voltage_->publish_state(value_battery_rating_voltage_);
+          this->battery_rating_voltage_->publish_state(value_battery_rating_voltage_ / 10.0);
         }
         if (this->battery_recharge_voltage_) {
-          this->battery_recharge_voltage_->publish_state(value_battery_recharge_voltage_);
+          this->battery_recharge_voltage_->publish_state(value_battery_recharge_voltage_ / 10.0);
         }
         if (this->battery_redischarge_voltage_) {
-          this->battery_redischarge_voltage_->publish_state(value_battery_redischarge_voltage_);
+          this->battery_redischarge_voltage_->publish_state(value_battery_redischarge_voltage_ / 10.0);
         }
         if (this->battery_under_voltage_) {
-          this->battery_under_voltage_->publish_state(value_battery_under_voltage_);
+          this->battery_under_voltage_->publish_state(value_battery_under_voltage_ / 10.0);
         }
         if (this->battery_bulk_voltage_) {
-          this->battery_bulk_voltage_->publish_state(value_battery_bulk_voltage_);
+          this->battery_bulk_voltage_->publish_state(value_battery_bulk_voltage_ / 10.0);
         }
         if (this->battery_float_voltage_) {
-          this->battery_float_voltage_->publish_state(value_battery_float_voltage_);
+          this->battery_float_voltage_->publish_state(value_battery_float_voltage_ / 10.0);
         }
         if (this->battery_type_) {
           this->battery_type_->publish_state(value_battery_type_);
@@ -180,10 +180,10 @@ void Pipsolar::loop() {
           this->battery_voltage_->publish_state(value_battery_voltage_ / 10.0);
         }
         if (this->battery_voltage_from_scc_) {
-          this->battery_voltage_from_scc_->publish_state(value_battery_voltage_from_scc_);
+          this->battery_voltage_from_scc_->publish_state(value_battery_voltage_from_scc_ / 10.0);
         }
         if (this->battery_voltage_from_scc2_) {
-          this->battery_voltage_from_scc2_->publish_state(value_battery_voltage_from_scc2_);
+          this->battery_voltage_from_scc2_->publish_state(value_battery_voltage_from_scc2_ / 10.0);
         }
         if (this->battery_discharge_current_) {
           this->battery_discharge_current_->publish_state(value_battery_discharge_current_);
