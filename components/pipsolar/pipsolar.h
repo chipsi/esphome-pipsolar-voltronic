@@ -240,7 +240,7 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
     STATE_POLL_DECODED = 6,
   };
 
-  std::string protocol = '18';
+  std::string protocol = "18";
 
   std::string commands_PI00[8] = { 'QPIRI', 'QPIGS', 'QMOD', 'QFLAG', 'QPIWS', 'QT', 'QMN', 'QBATCD' };
 
