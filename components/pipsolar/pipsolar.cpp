@@ -482,8 +482,8 @@ void Pipsolar::loop() {
             &value_ac_output_active_power_,                                                   //           F     // NOLINT
             &value_output_load_percent_,                                                      //           G     // NOLINT
             &value_battery_voltage_,                                                          //           H     // NOLINT
-            &value_battery_voltage_from_scc,                                                  //           I     // NOLINT
-            &value_battery_voltage_from_scc2,                                                 //           J     // NOLINT
+            &value_battery_voltage_from_scc_,                                                  //           I     // NOLINT
+            &value_battery_voltage_from_scc2_,                                                 //           J     // NOLINT
             &value_battery_discharge_current_,                                                //           K     // NOLINT
             &value_battery_charging_current_,                                                 //           L     // NOLINT
             &value_battery_capacity_percent_,                                                 //           M     // NOLINT
