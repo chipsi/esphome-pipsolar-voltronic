@@ -445,8 +445,8 @@ void Pipsolar::loop() {
     char tmp[PIPSOLAR_READ_BUFFER_LENGTH];
     sprintf(tmp, "%s", this->read_buffer_);
     switch (this->used_polling_commands_[this->last_polling_command_].identifier) {
-      case POLLING_0P007PIRI:
-        ESP_LOGD(TAG, "Decode 0P007PIRI");
+      case POLLING_^P007PIRI:
+        ESP_LOGD(TAG, "Decode ^P007PIRI");
         // 240.0 15.0 240.0 50.0 15.0 3600 3600 24.0 24.0 23.5 29.2 29.0 2 010 100 0 2 3 1 01 0 0 26.5 0 0 (Axpert VM IV 24v 3600w)
         // 240.0 22.9 240.0 50.0 22.9 5500 5500 48.0 51.0 42.0 55.1 54.7 2 02 100 1 2 1 1 01 0 0 53.0 0 1  (EASUN SML-II 48V 5500W)
         sscanf(tmp, "(%f %f %f %f %f %d %d %f %f %f %f %f %d %d %d %d %d %d %d %d %d %d %f %d %d",          // NOLINT
@@ -466,8 +466,8 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_0P005GS:
-        ESP_LOGD(TAG, "Decode 0P005GS");
+      case POLLING_^P005GS:
+        ESP_LOGD(TAG, "Decode ^P005GS");
         // Response examples of the PIP 2424MSE1
         // 226.7 49.9 226.7 49.9 0498 0479 016 427 27.00 005 100 0035 01.9 255.1 00.00 00000 10010110 00 00 00510 110 (2424MSE1)
         // 225.8 49.9 225.8 49.9 0609 0565 020 427 27.00 005 100 0035 02.2 259.9 00.00 00000 10010110 00 00 00590 110 (2424MSE1)
