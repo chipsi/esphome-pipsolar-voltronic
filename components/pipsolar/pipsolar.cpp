@@ -426,7 +426,7 @@ void Pipsolar::loop() {
         // ^D0892400,233,2400,500,233,5600,5600,480,500,530,480,547,547,2,002,120,0,1,1,9,0,0,0,1,1,01     (EASUN SV-IV 48V 5600W)
         //       A    B   C    D   E    F    G   H   I   J   K   L   M  N  O   P  Q R S T U V W Z a  b
         sscanf(tmp, "^D089%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",          // NOLINT
-        //                A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  Z  a
+        //                A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  Z  a  b?
                &value_ac_input_rating_voltage_,                                                 //           A     // NOLINT
                &value_ac_input_rating_current_,                                                 //           B     // NOLINT
                &value_ac_output_rating_voltage_,                                                //           C     // NOLINT
