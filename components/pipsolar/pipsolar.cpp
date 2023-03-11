@@ -159,13 +159,13 @@ void Pipsolar::loop() {
           this->grid_voltage_->publish_state(value_grid_voltage_ / 10.0);
         }
         if (this->grid_frequency_) {
-          this->grid_frequency_->publish_state(value_grid_frequency_);
+          this->grid_frequency_->publish_state(value_grid_frequency_ / 10.0);
         }
         if (this->ac_output_voltage_) {
-          this->ac_output_voltage_->publish_state(value_ac_output_voltage_);
+          this->ac_output_voltage_->publish_state(value_ac_output_voltage_ / 10.0);
         }
         if (this->ac_output_frequency_) {
-          this->ac_output_frequency_->publish_state(value_ac_output_frequency_);
+          this->ac_output_frequency_->publish_state(value_ac_output_frequency_ / 10.0);
         }
         if (this->ac_output_apparent_power_) {
           this->ac_output_apparent_power_->publish_state(value_ac_output_apparent_power_);
@@ -177,7 +177,7 @@ void Pipsolar::loop() {
           this->output_load_percent_->publish_state(value_output_load_percent_);
         }
         if (this->battery_voltage_) {
-          this->battery_voltage_->publish_state(value_battery_voltage_);
+          this->battery_voltage_->publish_state(value_battery_voltage_ / 10.0);
         }
         if (this->battery_voltage_from_scc_) {
           this->battery_voltage_from_scc_->publish_state(value_battery_voltage_from_scc_);
@@ -210,10 +210,10 @@ void Pipsolar::loop() {
           this->pv2_input_power_->publish_state(value_pv2_input_power_);
         }
         if (this->pv1_input_voltage_) {
-          this->pv1_input_voltage_->publish_state(value_pv1_input_voltage_);
+          this->pv1_input_voltage_->publish_state(value_pv1_input_voltage_ / 10.0);
         }
         if (this->pv2_input_voltage_) {
-          this->pv2_input_voltage_->publish_state(value_pv2_input_voltage_);
+          this->pv2_input_voltage_->publish_state(value_pv2_input_voltage_ / 10.0);
         }
         if (this->setting_value_configuration_state_) {
           this->setting_value_configuration_state_->publish_state(value_setting_value_configuration_state_);
