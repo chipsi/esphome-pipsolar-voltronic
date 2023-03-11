@@ -156,7 +156,7 @@ void Pipsolar::loop() {
         break;
       case POLLING_0P005GS:
         if (this->grid_voltage_) {
-          this->grid_voltage_->publish_state(value_grid_voltage_);
+          this->grid_voltage_->publish_state(value_grid_voltage_ / 10.0);
         }
         if (this->grid_frequency_) {
           this->grid_frequency_->publish_state(value_grid_frequency_);
