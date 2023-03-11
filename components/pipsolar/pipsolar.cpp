@@ -975,7 +975,7 @@ void Pipsolar::add_polling_command_(const char *command, ENUMPollingCommand poll
     if (used_polling_command.length == strlen(command)) {
       uint8_t len = strlen(command);
       if (memcmp(used_polling_command.command, command, len) == 0) {
-        used_polling_command.command[0] = 0x40;
+        used_polling_command.command[0] = 0x5e;
         return;
       }
     }
