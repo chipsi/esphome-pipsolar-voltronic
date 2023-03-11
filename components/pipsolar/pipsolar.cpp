@@ -504,6 +504,7 @@ void Pipsolar::loop() {
             &value_line_power_direction_,                                                     //           a     // NOLINT
             &value_local_parallel_id_                                                         //           b     // NOLINT
         );
+        ESP_LOGD(TAG, "Value value_grid_voltage_ : %d ", value_grid_voltage_);
         if (this->last_qgs_) {
           this->last_qgs_->publish_state(tmp);
         }
