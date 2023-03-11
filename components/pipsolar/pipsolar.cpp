@@ -461,8 +461,8 @@ void Pipsolar::loop() {
                &value_machine_type_, &value_topology_, &value_output_mode_,                                 // NOLINT
                &value_battery_redischarge_voltage_, &value_pv_ok_condition_for_parallel_,                   // NOLINT
                &value_pv_power_balance_);                                                                   // NOLINT
-        if (this->last_0P007PIRI_) {
-          this->last_0P007PIRI_->publish_state(tmp);
+        if (this->last_qpiri_) {
+          this->last_qpiri_->publish_state(tmp);
         }
         this->state_ = STATE_POLL_DECODED;
         break;
@@ -541,8 +541,8 @@ void Pipsolar::loop() {
             &value_switch_on_,                                                                //          29     // NOLINT
             &value_dustproof_installed_                                                       //          30     // NOLINT
         );
-        if (this->last_0P005GS_) {
-          this->last_0P005GS_->publish_state(tmp);
+        if (this->last_qgs_) {
+          this->last_qgs_->publish_state(tmp);
         }
         this->state_ = STATE_POLL_DECODED;
         break;
