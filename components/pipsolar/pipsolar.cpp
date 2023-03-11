@@ -206,7 +206,7 @@ void Pipsolar::loop() {
           this->battery_voltage_from_scc2_->publish_state(value_battery_voltage_from_scc2_);
         }
         if (this->battery_discharge_current_) {
-          this->battery_discharging_current_->publish_state(value_battery_discharging_current_);
+          this->battery_discharge_current_->publish_state(value_battery_discharge_current_);
         }
         if (this->battery_charging_current_) {
           this->battery_charging_current_->publish_state(value_battery_charging_current_);
