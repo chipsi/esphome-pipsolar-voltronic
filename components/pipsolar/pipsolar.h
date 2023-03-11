@@ -70,7 +70,7 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
   PIPSOLAR_SENSOR(battery_voltage, 0P005GS, float)
   PIPSOLAR_SENSOR(battery_voltage_from_scc, 0P005GS, float)
   PIPSOLAR_SENSOR(battery_voltage_from_scc2, 0P005GS, float)
-  PIPSOLAR_SENSOR(battery_discharging_current, 0P005GS, int)
+  PIPSOLAR_SENSOR(battery_discharge_current, 0P005GS, int)
   PIPSOLAR_SENSOR(battery_charging_current, 0P005GS, int)
   PIPSOLAR_SENSOR(battery_capacity_percent, 0P005GS, int)
   PIPSOLAR_SENSOR(inverter_heat_sink_temperature, 0P005GS, int)
