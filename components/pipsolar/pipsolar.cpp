@@ -70,11 +70,11 @@ void Pipsolar::loop() {
     std::string mode;
     switch (this->used_polling_commands_[this->last_polling_command_].identifier) {
       case POLLING_0P007PIRI:
-        if (this->grid_rating_voltage_) {
-          this->grid_rating_voltage_->publish_state(value_grid_rating_voltage_);
+        if (this->ac_input_rating_voltage_) {
+          this->ac_input_rating_voltage_->publish_state(value_ac_input_rating_voltage_);
         }
-        if (this->grid_rating_current_) {
-          this->grid_rating_current_->publish_state(value_grid_rating_current_);
+        if (this->ac_input_rating_current_) {
+          this->ac_input_rating_current_->publish_state(value_ac_input_rating_current_);
         }
         if (this->ac_output_rating_voltage_) {
           this->ac_output_rating_voltage_->publish_state(value_ac_output_rating_voltage_);
@@ -97,6 +97,9 @@ void Pipsolar::loop() {
         if (this->battery_recharge_voltage_) {
           this->battery_recharge_voltage_->publish_state(value_battery_recharge_voltage_);
         }
+        if (this->battery_redischarge_voltage_) {
+          this->battery_redischarge_voltage_->publish_state(value_battery_redischarge_voltage_);
+        }
         if (this->battery_under_voltage_) {
           this->battery_under_voltage_->publish_state(value_battery_under_voltage_);
         }
@@ -109,11 +112,11 @@ void Pipsolar::loop() {
         if (this->battery_type_) {
           this->battery_type_->publish_state(value_battery_type_);
         }
-        if (this->current_max_ac_charging_current_) {
-          this->current_max_ac_charging_current_->publish_state(value_current_max_ac_charging_current_);
+        if (this->max_ac_charging_current_) {
+          this->max_ac_charging_current_->publish_state(value_max_ac_charging_current_);
         }
-        if (this->current_max_charging_current_) {
-          this->current_max_charging_current_->publish_state(value_current_max_charging_current_);
+        if (this->max_charging_current_) {
+          this->max_charging_current_->publish_state(value_max_charging_current_);
         }
         if (this->input_voltage_range_) {
           this->input_voltage_range_->publish_state(value_input_voltage_range_);
@@ -124,21 +127,6 @@ void Pipsolar::loop() {
         }
         if (this->output_source_priority_) {
           this->output_source_priority_->publish_state(value_output_source_priority_);
-        }
-        // special for output source priority select
-        if (this->output_source_priority_select_) {
-          std::string value = esphome::to_string(value_output_source_priority_);
-          this->output_source_priority_select_->map_and_publish(value);
-        }
-        // special for output source priority switches
-        if (this->output_source_priority_utility_switch_) {
-          this->output_source_priority_utility_switch_->publish_state(value_output_source_priority_ == 0);
-        }
-        if (this->output_source_priority_solar_switch_) {
-          this->output_source_priority_solar_switch_->publish_state(value_output_source_priority_ == 1);
-        }
-        if (this->output_source_priority_battery_switch_) {
-          this->output_source_priority_battery_switch_->publish_state(value_output_source_priority_ == 2);
         }
         if (this->charger_source_priority_) {
           this->charger_source_priority_->publish_state(value_charger_source_priority_);
@@ -152,25 +140,17 @@ void Pipsolar::loop() {
         if (this->topology_) {
           this->topology_->publish_state(value_topology_);
         }
-        if (this->output_mode_) {
-          this->output_mode_->publish_state(value_output_mode_);
+        if (this->output_model_setting_) {
+          this->output_model_setting_->publish_state(value_output_model_setting_);
         }
-        if (this->battery_redischarge_voltage_) {
-          this->battery_redischarge_voltage_->publish_state(value_battery_redischarge_voltage_);
+        if (this->solar_power_priority_) {
+          this->solar_power_priority_->publish_state(value_solar_power_priority_);
         }
-        if (this->pv_ok_condition_for_parallel_) {
-          this->pv_ok_condition_for_parallel_->publish_state(value_pv_ok_condition_for_parallel_);
+        if (this->mppt_string_) {
+          this->mppt_string_->publish_state(value_mppt_string_);
         }
-        // special for pv ok condition switch
-        if (this->pv_ok_condition_for_parallel_switch_) {
-          this->pv_ok_condition_for_parallel_switch_->publish_state(value_pv_ok_condition_for_parallel_ == 1);
-        }
-        if (this->pv_power_balance_) {
-          this->pv_power_balance_->publish_state(value_pv_power_balance_ == 1);
-        }
-        // special for power balance switch
-        if (this->pv_power_balance_switch_) {
-          this->pv_power_balance_switch_->publish_state(value_pv_power_balance_ == 1);
+        if (this->bulk1_) {
+          this->bulk1_->publish_state(value_bulk1_);
         }
         this->state_ = STATE_IDLE;
         break;
@@ -439,28 +419,47 @@ void Pipsolar::loop() {
     sprintf(tmp, "%s", this->read_buffer_);
     switch (this->used_polling_commands_[this->last_polling_command_].identifier) {
       case POLLING_0P007PIRI:
-        ESP_LOGD(TAG, "Decode 0P007PIRI");
+        ESP_LOGD(TAG, "Decode ^P007PIRI");
         // 240.0 15.0 240.0 50.0 15.0 3600 3600 24.0 24.0 23.5 29.2 29.0 2 010 100 0 2 3 1 01 0 0 26.5 0 0 (Axpert VM IV 24v 3600w)
         // 240.0 22.9 240.0 50.0 22.9 5500 5500 48.0 51.0 42.0 55.1 54.7 2 02 100 1 2 1 1 01 0 0 53.0 0 1  (EASUN SML-II 48V 5500W)
-        sscanf(tmp, "(%f %f %f %f %f %d %d %f %f %f %f %f %d %d %d %d %d %d %d %d %d %d %f %d %d",          // NOLINT
-               &value_grid_rating_voltage_, &value_grid_rating_current_, &value_ac_output_rating_voltage_,  // NOLINT
-               &value_ac_output_rating_frequency_, &value_ac_output_rating_current_,                        // NOLINT
-               &value_ac_output_rating_apparent_power_, &value_ac_output_rating_active_power_,              // NOLINT
-               &value_battery_rating_voltage_, &value_battery_recharge_voltage_,                            // NOLINT
-               &value_battery_under_voltage_, &value_battery_bulk_voltage_, &value_battery_float_voltage_,  // NOLINT
-               &value_battery_type_, &value_current_max_ac_charging_current_,                               // NOLINT
-               &value_current_max_charging_current_, &value_input_voltage_range_,                           // NOLINT
-               &value_output_source_priority_, &value_charger_source_priority_, &value_parallel_max_num_,   // NOLINT
-               &value_machine_type_, &value_topology_, &value_output_mode_,                                 // NOLINT
-               &value_battery_redischarge_voltage_, &value_pv_ok_condition_for_parallel_,                   // NOLINT
-               &value_pv_power_balance_);                                                                   // NOLINT
+        // ^D0892400,233,2400,500,233,5600,5600,480,500,530,480,547,547,2,002,120,0,1,1,9,0,0,0,1,1,01     (EASUN SV-IV 48V 5600W)
+        //       A    B   C    D   E    F    G   H   I   J   K   L   M  N  O   P  Q R S T U V W Z a  b
+        sscanf(tmp, "^D089%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",          // NOLINT
+        //                A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  Z  a
+               &value_grid_rating_voltage_,                                                     //           A     // NOLINT
+               &value_grid_rating_current_,                                                     //           B     // NOLINT
+               &value_ac_output_rating_voltage_,                                                //           C     // NOLINT
+               &value_ac_output_rating_frequency_,                                              //           D     // NOLINT
+               &value_ac_output_rating_current_,                                                //           E     // NOLINT
+               &value_ac_output_rating_apparent_power_,                                         //           F     // NOLINT
+               &value_ac_output_rating_active_power_,                                           //           G     // NOLINT
+               &value_battery_rating_voltage_,                                                  //           H     // NOLINT
+               &value_battery_recharge_voltage_,                                                //           I     // NOLINT
+               &value_battery_redischarge_voltage_,                                             //           J     // NOLINT
+               &value_battery_under_voltage_,                                                   //           K     // NOLINT
+               &value_battery_bulk_voltage_,                                                    //           L     // NOLINT
+               &value_battery_float_voltage_,                                                   //           M     // NOLINT
+               &value_battery_type_,                                                            //           N     // NOLINT
+               &value_max_ac_charging_current_,                                                 //           O     // NOLINT
+               &value_max_charging_current_,                                                    //           P     // NOLINT
+               &value_input_voltage_range_,                                                     //           Q     // NOLINT
+               &value_output_source_priority_,                                                  //           R     // NOLINT
+               &value_charger_source_priority_,                                                 //           S     // NOLINT
+               &value_parallel_max_num_,                                                        //           T     // NOLINT
+               &value_machine_type_,                                                            //           U     // NOLINT
+               &value_topology_,                                                                //           V     // NOLINT
+               &value_output_model_setting_,                                                    //           W     // NOLINT
+               &value_solar_power_priority_,                                                    //           Z     // NOLINT
+               &value_mppt_string_,                                                             //           a     // NOLINT
+               &value_bulk1_                                                                    //           b     // NOLINT
+        );
         if (this->last_qpiri_) {
           this->last_qpiri_->publish_state(tmp);
         }
         this->state_ = STATE_POLL_DECODED;
         break;
       case POLLING_0P005GS:
-        ESP_LOGD(TAG, "Decode 0P005GS");
+        ESP_LOGD(TAG, "Decode ^P005GS");
         // Response examples of the PIP 2424MSE1
         // 226.7 49.9 226.7 49.9 0498 0479 016 427 27.00 005 100 0035 01.9 255.1 00.00 00000 10010110 00 00 00510 110 (2424MSE1)
         // 225.8 49.9 225.8 49.9 0609 0565 020 427 27.00 005 100 0035 02.2 259.9 00.00 00000 10010110 00 00 00590 110 (2424MSE1)
@@ -472,7 +471,7 @@ void Pipsolar::loop() {
         //       A    B   C    D   E    F    G   H   I   J   K   L   M   N   O   P   Q    R    S    T   U V W X Y Z a b
         sscanf(                                                                                                  // NOLINT
             tmp,                                                                                                 // NOLINT
-            "(^D106%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",         // NOLINT
+            "(^D106%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%d,%d,%d,%d,%d,%d,%d,%d",         // NOLINT
         //         A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z  a  b
             &value_grid_voltage_,                                                             //           A     // NOLINT
             &value_grid_frequency_,                                                           //           B     // NOLINT
