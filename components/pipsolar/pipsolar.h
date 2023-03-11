@@ -24,6 +24,7 @@ enum ENUMPollingCommand {
   POLLING_QMN = 6,
   POLLING_QBATCD = 7,
 };
+
 struct PollingCommand {
   uint8_t *command;
   uint8_t length = 0;
@@ -204,8 +205,8 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
 
  protected:
   friend class PipsolarSelect;
-  static const size_t PIPSOLAR_READ_BUFFER_LENGTH = 130;  // maximum supported answer length
-  static const size_t COMMAND_QUEUE_LENGTH = 10;
+  static const size_t PIPSOLAR_READ_BUFFER_LENGTH = 240;  // maximum supported answer length
+  static const size_t COMMAND_QUEUE_LENGTH = 20;
   static const size_t COMMAND_TIMEOUT = 5000;
   uint32_t last_poll_ = 0;
   void add_polling_command_(const char *command, ENUMPollingCommand polling_command);
@@ -233,7 +234,17 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
     STATE_POLL_DECODED = 6,
   };
 
+  std:string protocol = '18';
+
+  std::string commands_PI00[] = { 'QPIRI', 'QPIGS', 'QMOD', 'QFLAG', 'QPIWS', 'QT', 'QMN', 'QBATCD' };
+
+  std::string commands_PI17[] = { '^P007PIRI', '^P005GS', '^P006MOD', '^P007FLAG', '^P005FWS', '^P004T', '', '' };
+  std::string returns_PI17[] = { '^P007PIRI', '^P005GS', '^P006MOD', '^P007FLAG', '^P005FWS', '^P004T', '', '' };
+  std::string commands_PI18[] = { '^P007PIRI', '^P005GS', '^P006MOD', '^P007FLAG', '^P005FWS', '^P004T', '', '' };
+  std::string returns_PI18[] = { '^P007PIRI', '^P005GS', '^P006MOD', '^P007FLAG', '^P005FWS', '^P004T', '', '' };
+
   uint8_t last_polling_command_ = 0;
+
   PollingCommand used_polling_commands_[15];
 };
 

@@ -961,6 +961,7 @@ void Pipsolar::switch_command(const std::string &command) {
 }
 void Pipsolar::dump_config() {
   ESP_LOGCONFIG(TAG, "Pipsolar:");
+  ESP_LOGCONFIG(TAG, "Protocol: %s", protocol);
   ESP_LOGCONFIG(TAG, "used commands:");
   for (auto &used_polling_command : this->used_polling_commands_) {
     if (used_polling_command.length != 0) {
