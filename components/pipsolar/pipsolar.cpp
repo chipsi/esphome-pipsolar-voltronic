@@ -425,7 +425,7 @@ void Pipsolar::loop() {
         // 240.0 22.9 240.0 50.0 22.9 5500 5500 48.0 51.0 42.0 55.1 54.7 2 02 100 1 2 1 1 01 0 0 53.0 0 1  (EASUN SML-II 48V 5500W)
         // ^D0892400,233,2400,500,233,5600,5600,480,500,530,480,547,547,2,002,120,0,1,1,9,0,0,0,1,1,01     (EASUN SV-IV 48V 5600W)
         //       A    B   C    D   E    F    G   H   I   J   K   L   M  N  O   P  Q R S T U V W Z a  b
-        sscanf(tmp, "^D089%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",          // NOLINT
+        ESP_LOGD(TAG, "SSCANF return : %d ", sscanf(tmp, "^D089%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",          // NOLINT
         //                A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  Z  a  b?
                &value_ac_input_rating_voltage_,                                                 //           A     // NOLINT
                &value_ac_input_rating_current_,                                                 //           B     // NOLINT
@@ -453,7 +453,7 @@ void Pipsolar::loop() {
                &value_solar_power_priority_,                                                    //           Z     // NOLINT
                &value_mppt_string_,                                                             //           a     // NOLINT
                &value_bulk1_                                                                    //           b     // NOLINT
-        );
+        ));
         if (this->last_qpiri_) {
           this->last_qpiri_->publish_state(tmp);
         }
