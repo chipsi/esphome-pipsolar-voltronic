@@ -12,7 +12,7 @@ Kudos to [@andreashergert1984](https://github.com/andreashergert1984) for the gr
 
 ## Supported devices
 
-* PIP4048 compatible PV Inverter
+* Voltronic protocol 18 compatible PV Inverter, EASUN SV-IV, InfiniSolar V IV
 
 
 ## Requirements
