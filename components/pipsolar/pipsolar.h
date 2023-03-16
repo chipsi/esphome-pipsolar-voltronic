@@ -17,9 +17,9 @@ class PipsolarSelect;
 enum ENUMPollingCommand {
   POLLING_0P007PIRI = 0,
   POLLING_0P005GS = 1,
-  POLLING_QMOD = 2,
-  POLLING_QFLAG = 3,
-  POLLING_QPIWS = 4,
+  POLLING_0P006MOD = 2,
+  POLLING_0P007FLAG = 3,
+  POLLING_0P005FWS = 4,
   POLLING_QT = 5,
   POLLING_QMN = 6,
   POLLING_QBATCD = 7,
@@ -117,73 +117,66 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
   PIPSOLAR_SENSOR(mppt_string,0P007PIRI, int)
   PIPSOLAR_SENSOR(bulk1,0P007PIRI, int)
 
-  // QMOD values
-  PIPSOLAR_VALUED_TEXT_SENSOR(device_mode, QMOD, char)
+  // 0P006MOD values
+  PIPSOLAR_VALUED_TEXT_SENSOR(device_mode, 0P006MOD, char)
 
-  // QFLAG values
-  PIPSOLAR_BINARY_SENSOR(silence_buzzer_open_buzzer, QFLAG, int)
-  PIPSOLAR_BINARY_SENSOR(overload_bypass_function, QFLAG, int)
-  PIPSOLAR_BINARY_SENSOR(lcd_escape_to_default, QFLAG, int)
-  PIPSOLAR_BINARY_SENSOR(overload_restart_function, QFLAG, int)
-  PIPSOLAR_BINARY_SENSOR(over_temperature_restart_function, QFLAG, int)
-  PIPSOLAR_BINARY_SENSOR(backlight_on, QFLAG, int)
-  PIPSOLAR_BINARY_SENSOR(alarm_on_when_primary_source_interrupt, QFLAG, int)
-  PIPSOLAR_BINARY_SENSOR(fault_code_record, QFLAG, int)
-  PIPSOLAR_BINARY_SENSOR(power_saving, QFLAG, int)
+  // 0P007FLAG values
+  PIPSOLAR_BINARY_SENSOR(silence_buzzer_open_buzzer, 0P007FLAG, int)
+  PIPSOLAR_BINARY_SENSOR(overload_bypass_function, 0P007FLAG, int)
+  PIPSOLAR_BINARY_SENSOR(lcd_escape_to_default, 0P007FLAG, int)
+  PIPSOLAR_BINARY_SENSOR(overload_restart_function, 0P007FLAG, int)
+  PIPSOLAR_BINARY_SENSOR(over_temperature_restart_function, 0P007FLAG, int)
+  PIPSOLAR_BINARY_SENSOR(backlight_on, 0P007FLAG, int)
+  PIPSOLAR_BINARY_SENSOR(alarm_on_when_primary_source_interrupt, 0P007FLAG, int)
+  PIPSOLAR_BINARY_SENSOR(fault_code_record, 0P007FLAG, int)
+  PIPSOLAR_BINARY_SENSOR(power_saving, 0P007FLAG, int)
 
-  // QPIWS values
-  PIPSOLAR_BINARY_SENSOR(warnings_present, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(faults_present, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_power_loss, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_inverter_fault, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_bus_over, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_bus_under, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_bus_soft_fail, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_line_fail, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_opvshort, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_inverter_voltage_too_low, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_inverter_voltage_too_high, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_over_temperature, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_fan_lock, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_battery_voltage_high, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_battery_low_alarm, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_battery_under_shutdown, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_battery_derating, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_over_load, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_eeprom_failed, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_inverter_over_current, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_inverter_soft_failed, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_self_test_failed, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_op_dc_voltage_over, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_battery_open, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_current_sensor_failed, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_battery_short, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_power_limit, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_pv_voltage_high, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_mppt_overload, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_mppt_overload, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_battery_too_low_to_charge, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_dc_dc_over_current, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(fault_code, QPIWS, int)
-  PIPSOLAR_BINARY_SENSOR(warnung_low_pv_energy, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_high_ac_input_during_bus_soft_start, QPIWS, bool)
-  PIPSOLAR_BINARY_SENSOR(warning_battery_equalization, QPIWS, bool)
-
-  // QBATCD values NOT SUPPORTED ON EASUN SML-II
-
-  PIPSOLAR_BINARY_SENSOR(discharge_onoff, QBATCD, bool)
-  PIPSOLAR_BINARY_SENSOR(discharge_with_standby_onoff, QBATCD, bool)
-  PIPSOLAR_BINARY_SENSOR(charge_onoff, QBATCD, bool)
-
+  // 0P005FWS values
+  PIPSOLAR_BINARY_SENSOR(warnings_present, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(faults_present, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_power_loss, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_inverter_fault, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_bus_over, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_bus_under, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_bus_soft_fail, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_line_fail, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_opvshort, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_inverter_voltage_too_low, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_inverter_voltage_too_high, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_over_temperature, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_fan_lock, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_battery_voltage_high, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_battery_low_alarm, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_battery_under_shutdown, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_battery_derating, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_over_load, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_eeprom_failed, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_inverter_over_current, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_inverter_soft_failed, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_self_test_failed, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_op_dc_voltage_over, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_battery_open, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_current_sensor_failed, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_battery_short, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_power_limit, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_pv_voltage_high, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_mppt_overload, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_mppt_overload, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_battery_too_low_to_charge, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_dc_dc_over_current, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(fault_code, 0P005FWS, int)
+  PIPSOLAR_BINARY_SENSOR(warnung_low_pv_energy, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_high_ac_input_during_bus_soft_start, 0P005FWS, bool)
+  PIPSOLAR_BINARY_SENSOR(warning_battery_equalization, 0P005FWS, bool)
 
   PIPSOLAR_TEXT_SENSOR(last_qgs, 0P005GS)
   PIPSOLAR_TEXT_SENSOR(last_qpiri,0P007PIRI)
-  PIPSOLAR_TEXT_SENSOR(last_qmod, QMOD)
-  PIPSOLAR_TEXT_SENSOR(last_qflag, QFLAG)
-  PIPSOLAR_TEXT_SENSOR(last_qpiws, QPIWS)
-  PIPSOLAR_TEXT_SENSOR(last_qt, QT)
-  PIPSOLAR_TEXT_SENSOR(last_qmn, QMN)
-  PIPSOLAR_TEXT_SENSOR(last_qbatcd, QBATCD)
+  PIPSOLAR_TEXT_SENSOR(last_qmod, 0P006MOD)
+  PIPSOLAR_TEXT_SENSOR(last_qflag, 0P007FLAG)
+  PIPSOLAR_TEXT_SENSOR(last_qfiws, 0P005FWS)
+  //PIPSOLAR_TEXT_SENSOR(last_qt, QT)
+  //PIPSOLAR_TEXT_SENSOR(last_qmn, QMN)
+  //PIPSOLAR_TEXT_SENSOR(last_qbatcd, QBATCD)
 
   PIPSOLAR_SWITCH(output_source_priority_utility_switch,0P007PIRI)
   PIPSOLAR_SWITCH(output_source_priority_solar_switch,0P007PIRI)
@@ -193,7 +186,7 @@ class Pipsolar : public uart::UARTDevice, public PollingComponent {
   PIPSOLAR_SWITCH(pv_power_balance_switch,0P007PIRI)
 
   PIPSOLAR_SELECT(output_source_priority_select,0P007PIRI)
-  PIPSOLAR_VALUED_SELECT(charging_discharging_control_select, QBATCD, std::string)
+  //PIPSOLAR_VALUED_SELECT(charging_discharging_control_select, QBATCD, std::string)
 
   void switch_command(const std::string &command);
   void setup() override;
