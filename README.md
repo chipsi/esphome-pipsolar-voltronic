@@ -58,31 +58,39 @@ The inverter provides +12V on pin 4 or 7 depending on the model. You can use a c
 
 The [source for the pinout is here](docs/HS_MS_MSX%20RS232%20Protocol.pdf).
 
-## Installation
+## invertor.yaml
 
 Use the `esp32-example.yaml` / `esp8266-example.yaml` as proof of concept:
 
 ```bash
-# Install esphome
-pip3 install esphome
+substitutions:
+  name: fve-invertors
+  tx2_pin: GPIO15
+  rx2_pin: GPIO13
+  tx0_pin: GPIO1
+  rx0_pin: GPIO3
 
-# Clone this external component
-git clone https://github.com/syssi/esphome-pipsolar.git
-cd esphome-pipsolar
+esphome:
+  name: ${name}
+  platform: esp8266
+  board: nodemcuv2
 
-# Create a secret.yaml containing some setup specific secrets
-cat > secrets.yaml <<EOF
-mqtt_host: MY_MQTT_HOST
-mqtt_username: MY_MQTT_USERNAME
-mqtt_password: MY_MQTT_PASSWORD
+preferences:
+  flash_write_interval: 60s
 
-wifi_ssid: MY_WIFI_SSID
-wifi_password: MY_WIFI_PASSWORD
-EOF
+external_components:
+  - source: github://chipsi/esphome-pipsolar-voltronic@easun-sml-ii
+    refresh: 0s
 
-# Validate the configuration, create a binary, upload it, and start logs
-# If you use a esp8266 run the esp8266-examle.yaml
-esphome run esp32-example.yaml
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+   
+# Enable logging
+logger:
+  level: DEBUG
+  # Don't write log messages to UART0 (GPIO1/GPIO3) if the inverter is connected to GPIO1/GPIO3
+  baud_rate: 0
 
 ```
 
