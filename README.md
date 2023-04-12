@@ -58,7 +58,7 @@ The inverter provides +12V on pin 4 or 7 depending on the model. You can use a c
 
 The [source for the pinout is here](docs/HS_MS_MSX%20RS232%20Protocol.pdf).
 
-## invertor.yaml
+## fve-invertors.yaml
 
 Use the `esp32-example.yaml` / `esp8266-example.yaml` as proof of concept:
 
