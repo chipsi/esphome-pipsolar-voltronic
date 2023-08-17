@@ -241,14 +241,14 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_QMOD:
+      case POLLING_0P006MOD:
         if (this->device_mode_) {
           mode = value_device_mode_;
           this->device_mode_->publish_state(mode);
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_QFLAG:
+      case POLLING_0P007FLAG:
         if (this->silence_buzzer_open_buzzer_) {
           this->silence_buzzer_open_buzzer_->publish_state(value_silence_buzzer_open_buzzer_);
         }
@@ -278,7 +278,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_IDLE;
         break;
-      case POLLING_QPIWS:
+      case POLLING_0P005FWS:
         if (this->warnings_present_) {
           this->warnings_present_->publish_state(value_warnings_present_);
         }
