@@ -512,7 +512,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_QMOD:
+      case POLLING_0P006MOD:
         ESP_LOGD(TAG, "Decode QMOD");
         this->value_device_mode_ = char(this->read_buffer_[1]);
         if (this->last_qmod_) {
@@ -520,7 +520,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_QFLAG:
+      case POLLING_0P007FLAG:
         ESP_LOGD(TAG, "Decode QFLAG");
         // result like:"(EbkuvxzDajy"
         // get through all char: ignore first "(" Enable flag on 'E', Disable on 'D') else set the corresponding value
@@ -566,7 +566,7 @@ void Pipsolar::loop() {
         }
         this->state_ = STATE_POLL_DECODED;
         break;
-      case POLLING_QPIWS:
+      case POLLING_0P005FWS:
         ESP_LOGD(TAG, "Decode QPIWS");
         // '(00000000000000000000000000000000'
         // iterate over all available flag (as not all models have all flags, but at least in the same order)
