@@ -391,6 +391,7 @@ void Pipsolar::loop() {
         this->state_ = STATE_IDLE;
         break;
       case POLLING_QBATCD:
+/*        
         if (this->discharge_onoff_) {
           this->discharge_onoff_->publish_state(value_discharge_onoff_);
         }
@@ -403,6 +404,7 @@ void Pipsolar::loop() {
         if (this->charging_discharging_control_select_) {
           this->charging_discharging_control_select_->map_and_publish(value_charging_discharging_control_select_);
         }
+*/        
         this->state_ = STATE_IDLE;
         break;
       case POLLING_QT:
