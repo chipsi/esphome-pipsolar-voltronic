@@ -722,21 +722,26 @@ void Pipsolar::loop() {
         break;
       case POLLING_QT:
         ESP_LOGD(TAG, "Decode QT");
+/*
         if (this->last_qt_) {
           this->last_qt_->publish_state(tmp);
         }
+*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       case POLLING_QMN:
         ESP_LOGD(TAG, "Decode QMN");
+/*        
         if (this->last_qmn_) {
           this->last_qmn_->publish_state(tmp);
         }
+*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       case POLLING_QBATCD:
         ESP_LOGD(TAG, "Decode QBATCD");
         // '(000'
+/*        
         for (size_t i = 1; i < strlen(tmp); i++) {
           enabled = tmp[i] == '1';
           switch (i) {
@@ -752,10 +757,10 @@ void Pipsolar::loop() {
           }
         }
         this->value_charging_discharging_control_select_ = tmp;
-
         if (this->last_qbatcd_) {
           this->last_qbatcd_->publish_state(tmp);
         }
+*/        
         this->state_ = STATE_POLL_DECODED;
         break;
       default:
