@@ -715,8 +715,8 @@ void Pipsolar::loop() {
               break;
           }
         }
-        if (this->last_qpiws_) {
-          this->last_qpiws_->publish_state(tmp);
+        if (this->last_qfiws_) {
+          this->last_qfiws_->publish_state(tmp);
         }
         this->state_ = STATE_POLL_DECODED;
         break;
