@@ -15,7 +15,7 @@ esphome:
   board: d1_mini
 
 external_components:
-  - source: github://chipsi/esphome-pipsolar-voltronic@easun-sml-ii
+  - source: github://chipsi/esphome-pipsolar-voltronic@easun-sv-iv
     refresh: 0s
 
 wifi:
